@@ -285,13 +285,22 @@ function otaUploadFiles(files,idx,se){
 if(idx>=files.length)return Promise.resolve();
 var fn=files[idx];
 se.innerHTML='<div style="background:rgba(77,166,255,.1);border:1px solid rgba(77,166,255,.2);border-radius:8px;padding:12px;text-align:center"><div class="spinner"></div> <span style="color:var(--l);font-weight:600">Lade '+fn+' ('+(idx+1)+'/'+files.length+')...</span></div>';
-return fetch(OTA_REPO+fn).then(function(r){return r.arrayBuffer()}).then(function(buf){
+return fetch(OTA_REPO+fn+"?t="+Date.now()).then(function(r){if(!r.ok)throw new Error(fn+" download failed: "+r.status);return r.arrayBuffer()}).then(function(buf){
 var bytes=new Uint8Array(buf);
-se.innerHTML='<div style="background:rgba(77,166,255,.1);border:1px solid rgba(77,166,255,.2);border-radius:8px;padding:12px;text-align:center"><div class="spinner"></div> <span style="color:var(--l);font-weight:600">Übertrage '+fn+' ('+Math.round(bytes.length/1024)+'KB)...</span></div>';
-return fetch("/api/ota/start",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({filename:fn})}).then(function(){
-var CHUNK=1536;var total=Math.ceil(bytes.length/CHUNK);
-function sendChunk(i){if(i>=total)return Promise.resolve();var start=i*CHUNK;var end=Math.min(start+CHUNK,bytes.length);var slice=bytes.slice(start,end);var b64=btoa(String.fromCharCode.apply(null,slice));
-return fetch("/api/ota/chunk",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({filename:fn,data:b64})}).then(function(r){return r.json()}).then(function(d){if(!d.ok)throw new Error(fn+" chunk error");return sendChunk(i+1);});}
+se.innerHTML='<div style="background:rgba(77,166,255,.1);border:1px solid rgba(77,166,255,.2);border-radius:8px;padding:12px;text-align:center"><div class="spinner"></div> <span style="color:var(--l);font-weight:600">Übertrage '+fn+' ('+Math.round(bytes.length/1024)+'KB)...</span><div id="otaProg" style="margin-top:6px;height:3px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden"><div id="otaBar" style="height:100%;width:0%;background:var(--n);border-radius:2px;transition:width .2s"></div></div></div>';
+return fetch("/api/ota/start",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({filename:fn})}).then(function(r){return r.json()}).then(function(d){
+if(!d.ok)throw new Error(fn+" start error");
+var CHUNK=1024;var total=Math.ceil(bytes.length/CHUNK);
+function toB64(arr){var s="",i;for(i=0;i<arr.length;i++)s+=String.fromCharCode(arr[i]);return btoa(s);}
+function sendChunk(i){
+if(i>=total)return Promise.resolve();
+var start=i*CHUNK;var end=Math.min(start+CHUNK,bytes.length);
+var b64=toB64(bytes.slice(start,end));
+var pct=Math.round((i+1)/total*100);
+var bar=document.getElementById("otaBar");if(bar)bar.style.width=pct+"%";
+return new Promise(function(resolve){setTimeout(resolve,50)}).then(function(){
+return fetch("/api/ota/chunk",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({filename:fn,data:b64})}).then(function(r){return r.json()}).then(function(d){if(!d.ok)throw new Error(fn+" chunk "+i+" error");return sendChunk(i+1);});
+});}
 return sendChunk(0);
 }).then(function(){return fetch("/api/ota/finish",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({filename:fn})}).then(function(r){return r.json()}).then(function(d){if(!d.ok)throw new Error(fn+" finish error");return otaUploadFiles(files,idx+1,se);});});
 });
