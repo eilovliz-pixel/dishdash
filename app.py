@@ -7,7 +7,7 @@ import gc
 import os
 
 # === OTA UPDATE ===
-OTA_VERSION = "4.3.3"
+OTA_VERSION = "4.3.4"
 
 # === PINS ===
 FRONT_BTN = machine.Pin(2, machine.Pin.IN, machine.Pin.PULL_UP)
