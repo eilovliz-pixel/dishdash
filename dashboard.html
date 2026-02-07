@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#0a0a0f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Dish Dash"><link rel="manifest" href="/manifest.json"><link rel="icon" href="/icon.svg" type="image/svg+xml"><title>DISH DASH</title><style>
+:root{--b:#0a0a0f;--g:rgba(255,255,255,.05);--gb:rgba(255,255,255,.08);--t:#e8e8f0;--t2:#777;--t3:#444;--r:#ff4d6a;--n:#00d68f;--l:#4da6ff;--d:#ffb740;--p:#a855f7;--pk:#ec4899}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--b);color:var(--t);font-family:system-ui,sans-serif;overflow-x:hidden}
+.W{max-width:460px;margin:0 auto;padding:0 12px}
+.hd{padding:14px 0 10px;display:flex;align-items:center;justify-content:space-between}
+.lo{display:flex;align-items:center;gap:10px}.lo i{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;font-style:normal;background:linear-gradient(135deg,rgba(255,77,106,.1),rgba(0,214,143,.1));border:1px solid var(--gb)}.lo b{font-size:18px;letter-spacing:-.5px}.lo small{display:block;font-size:7px;color:var(--t3);letter-spacing:3px;font-weight:600}
+.ck{font-size:20px;font-weight:300;text-align:right}.ck small{display:block;font-size:9px;color:var(--t2);font-weight:400}
+.nv{display:flex;gap:2px;margin-bottom:10px}.nv a{flex:1;padding:9px 0;text-align:center;border-radius:9px;font-size:11px;font-weight:600;color:var(--t3);cursor:pointer;border:1px solid transparent}.nv a.on{background:var(--g);border-color:var(--gb);color:var(--t)}
+.C{background:var(--g);border:1px solid var(--gb);border-radius:12px;margin-bottom:7px;overflow:hidden}
+.V{display:none}.V.on{display:block}
+.do{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:7px;box-shadow:0 0 8px currentColor;animation:gp 2s infinite}@keyframes gp{50%{box-shadow:0 0 14px currentColor}}
+.bt{font-weight:700;border:none;padding:11px 20px;font-size:12px;cursor:pointer;color:#fff;border-radius:9px;display:inline-flex;align-items:center;gap:5px}.bt:active{transform:scale(.95)}.bs{padding:5px 11px;font-size:10px;border-radius:5px}.bx{padding:3px 8px;font-size:9px;border-radius:4px}.bf{width:100%;justify-content:center}
+.Bg{background:linear-gradient(135deg,#00d68f,#00b377)}.Br{background:linear-gradient(135deg,#ff4d6a,#e0334e)}.Bb{background:linear-gradient(135deg,#4da6ff,#2d7dd2)}.Bd{background:linear-gradient(135deg,#ffb740,#e09520)}.Bp{background:linear-gradient(135deg,#a855f7,#9333ea)}.Bk{background:linear-gradient(135deg,#ec4899,#db2777)}.Bt{background:linear-gradient(135deg,#14b8a6,#0f766e)}.Bo{background:linear-gradient(135deg,#f97316,#ea580c)}.Bm{background:var(--g);border:1px solid var(--gb);color:var(--t2)}.Bh{background:0;border:1px solid var(--gb);color:var(--t3)}
+.in{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);color:var(--t);padding:8px;font-size:13px;border-radius:5px;outline:0;width:100%;font-family:inherit}.in:focus{border-color:var(--n)}
+.ta2{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03);color:var(--t);padding:8px;font-size:13px;border-radius:5px;resize:vertical;min-height:40px;width:100%;font-family:inherit}.ta2:focus{border-color:var(--n)}
+.ro{font-size:12px;padding:8px;background:rgba(255,255,255,.02);border-radius:5px;color:var(--t);border:1px solid rgba(255,255,255,.03)}
+input[type=range]{width:100%;height:16px;-webkit-appearance:none;background:0;cursor:pointer}input[type=range]::-webkit-slider-track{height:3px;background:rgba(255,255,255,.06);border-radius:2px}input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--n);border-radius:50%;margin-top:-6px}
+input[type=file]{display:none}
+.fl{padding:8px 12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:5px;cursor:pointer;font-size:12px;color:var(--t2)}.fl:hover{border-color:var(--n)}
+.ap{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;padding:6px;margin:4px 0;background:var(--g);border:1px solid var(--gb);border-radius:8px}.ao{font-size:16px;padding:4px;text-align:center;cursor:pointer;border-radius:4px}.ao:active,.ao.se{background:rgba(0,214,143,.15)}
+.to{position:fixed;top:14px;left:50%;transform:translateX(-50%) translateY(-70px);padding:9px 16px;border-radius:9px;font-size:11px;font-weight:600;z-index:99;transition:transform .3s}.to.s{transform:translateX(-50%) translateY(0)}.to-ok{background:rgba(0,214,143,.2);border:1px solid rgba(0,214,143,.3);color:var(--n)}.to-er{background:rgba(255,77,106,.2);border:1px solid rgba(255,77,106,.3);color:var(--r)}.to-in{background:rgba(77,166,255,.2);border:1px solid rgba(77,166,255,.3);color:var(--l)}
+.tb{display:flex;gap:2px;flex-wrap:wrap;margin-bottom:8px}.ta{padding:5px 9px;border-radius:12px;font-size:9px;font-weight:600;color:var(--t3);cursor:pointer;border:1px solid transparent}.ta.on{background:rgba(0,214,143,.1);border-color:rgba(0,214,143,.2);color:var(--n)}
+.ct{font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:space-between;padding:12px 12px 0}.cb{padding:4px 12px 12px}
+.cr{display:flex;align-items:center;gap:7px;padding:7px 0;border-top:1px solid rgba(255,255,255,.03)}.cr:first-child{border-top:0}
+.ch{font-size:8px;color:var(--t3);line-height:1.4;margin-top:8px;padding:6px;background:rgba(255,255,255,.02);border-radius:4px;border-left:2px solid var(--n)}
+.ir{display:flex;justify-content:space-between;padding:5px 0;border-top:1px solid rgba(255,255,255,.03)}.ir:first-child{border-top:0}.ik{font-size:10px;color:var(--t2)}.iv{font-size:10px;font-weight:600}
+.sw{width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,.1);position:relative;cursor:pointer;display:inline-block;vertical-align:middle}.sw::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#555;top:2px;left:2px;transition:.2s}.sw.on{background:rgba(0,214,143,.3)}.sw.on::after{background:var(--n);left:18px}
+.bb{position:fixed;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--r),var(--d),var(--n),var(--l));opacity:.3}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.1);border-top:2px solid var(--l);border-radius:50%;animation:spin 1s linear infinite;vertical-align:middle}
+.pr{margin:8px 0;padding:12px;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.15);border-radius:10px}.pr h{font-size:11px;color:var(--p);margin-bottom:8px;font-weight:800}.pr p{font-size:13px;text-align:center;margin:6px 0}
+</style></head><body>
+<div id="to" class="to"></div>
+<div id="pr" class="pr" style="display:none">
+<h>🎁 Belohnung erreicht!</h>
+<p id="prText"></p>
+<button class="bt Bg" onclick="hideReward()">OK!</button>
+</div>
+<div class="W">
+<div class="hd"><div class="lo"><i>🍽</i><div><b>Dish Dash</b><small id="hv">v...</small></div></div><div id="ck" class="ck"></div></div>
+<div class="nv"><a class="on" onclick="go('g')">🎮 Spiel</a><a onclick="go('r')">🏆 Rang</a><a onclick="go('c')">⚙️ Config</a></div>
+<div id="Vg" class="V on"></div><div id="Vr" class="V"></div><div id="Vc" class="V"></div>
+</div><div class="bb"></div>
+<script>
+var P=["#ff4d6a","#00d68f","#4da6ff","#ffb740","#a855f7","#ec4899","#14b8a6","#f97316"];
+var PL=["#ff7a93","#33e0aa","#80bfff","#ffcc73","#c084fc","#f472b6","#5eead4","#fb923c"];
+var BC=["Br","Bg","Bb","Bd","Bp","Bk","Bt","Bo"];
+var AV=["🔴","🟢","🔵","🟡","🟣","⚪","🟠","🟤","⭐","🍄","🎮","👾","🌸","💎","🔥","❄️","🎯","🎪","🎨","🎭","🎸","🎺","🎻","🎹"];
+var TK={dirty:"Schmutzig",yourTurn:"Dran-Text",point:"Punkt (selbst)",pointOther:"Punkt (andere)",skipped:"Uebersprungen",unknown:"Unbekannt",milestone:"Meilenstein",milestoneScore:"Meilenstein Pkt",reset:"Reset"};
+var TD={dirty:"EINRÄUMEN!",yourTurn:"{NAME} DU BIST DRAN!",point:"{NAME} +1 PUNKT!",pointOther:"DANKE {NAME} +1 PUNKT!",skipped:"{NAME} ÜBERSPRUNGEN!",unknown:"UNBEKANNT!",milestone:"GRATULIERE {NAME}!",milestoneScore:"{SCORE} PUNKTE!",reset:"RESET!"};
+var S={names:["DAVID","AMELIE","JAMIE","BABSI"],avatars:["🔴","🟢","🔵","🟡"],scores:[0,0,0,0],turn:0,running:false,texts:TD,display:{brightness:5,scrollSpeed:30,scrollCount:2,blinkCount:3},motionTimeout:15,pirEnabled:true,sound:{enabled:true,volume:3,onStart:true,onScore:true,onMilestone:true},log:[],streaks:[0,0,0,0],lastScorer:-1,fp:[false,false,false,false],rewards:[[],[],[],[]],ip:"",wifi:{ssid:""},network:{dhcp:true,ip:"",gateway:"",dns:""},mdns:"dishdash.local",wifi_connected:false,wifi_failures:0};
+var VW="g",CF="players",ed=false,ol=true,apI=-1;
+
+function NN(){return S.names.length;}
+function pc(i){return P[i%P.length];}
+function plc(i){return PL[i%PL.length];}
+function bc(i){return BC[i%BC.length];}
+
+function api(p,m,b){var o={method:m||"GET",headers:{"Content-Type":"application/json"}};if(b)o.body=JSON.stringify(b);return fetch("/api/"+p,o).then(function(r){ol=true;return r.json()}).catch(function(){ol=false;return null});}
+function ld(){if(!ed)api("state").then(function(d){if(d&&!d.error){for(var k in d)S[k]=d[k];R();checkReward(d);}});if(!window._vl){window._vl=1;fetch("/api/ota/version").then(function(r){return r.json()}).then(function(d){var v=d.version||"?";window._ov=v;document.getElementById("hv").textContent="v"+v;document.title="DISH DASH v"+v;}).catch(function(){});}}
+function T(m,t){var e=document.getElementById("to");e.textContent=m;e.className="to to-"+(t||"ok")+" s";setTimeout(function(){e.classList.remove("s")},2e3);}
+function tk(){var d=new Date();document.getElementById("ck").innerHTML=d.toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"})+"<small>"+d.toLocaleDateString("de-AT",{weekday:"short",day:"numeric",month:"short"})+"</small>";}
+setInterval(tk,1e4);tk();
+function ago(ts){var d=Math.floor(Date.now()/1000)-ts;if(d<60)return"gerade";if(d<3600)return Math.floor(d/60)+"m";if(d<86400)return Math.floor(d/3600)+"h";return Math.floor(d/86400)+"d";}
+
+function checkReward(data){if(data&&data.reward){var r=data.reward;document.getElementById("prText").innerHTML=S.avatars[r.player]+" <b>"+S.names[r.player]+"</b><br>"+r.score+" Punkte!<br><br>🎉 <b>"+r.text+"</b> 🎉";document.getElementById("pr").style.display="block";}}
+function hideReward(){document.getElementById("pr").style.display="none";}
+
+function go(v){VW=v;apI=-1;var a=["g","r","c"],vs=document.querySelectorAll(".V"),ns=document.querySelectorAll(".nv a");for(var i=0;i<3;i++){vs[i].className=a[i]===v?"V on":"V";ns[i].className=a[i]===v?"on":"";}R();}
+function R(){if(ed)return;if(VW==="g")rG();else if(VW==="r")rR();else{if(CF==="update")return;rC();}}
+
+function rG(){
+var e=document.getElementById("Vg"),n=NN(),c=pc(S.turn),t=0,m=1,h="",i;
+for(i=0;i<n;i++){t+=S.scores[i];if(S.scores[i]>m)m=S.scores[i];}
+h+='<div class="C" style="padding:11px 13px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center"><span class="do" style="color:'+(S.running?'var(--r)':c)+'"></span><div><div style="font-size:8px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase">Status</div><div style="font-size:13px;font-weight:700;color:'+(S.running?'var(--r)':c)+'">'+(S.running?"Einräumen!":"Wer ist dran?")+'</div></div></div><div style="display:flex;align-items:center;gap:8px">';
+if(!S.wifi_connected)h+='<div style="padding:2px 6px;background:rgba(255,77,106,.1);border:1px solid rgba(255,77,106,.2);border-radius:6px;font-size:9px;font-weight:700;color:var(--r)">📡 OFFLINE</div>';
+h+='<div style="padding:4px 10px;background:rgba(255,183,64,.07);border:1px solid rgba(255,183,64,.1);border-radius:14px;font-size:13px;font-weight:800;color:var(--d)">🪙 '+t+'</div></div></div>';
+h+='<div class="C" style="padding:22px 14px;text-align:center">';
+if(S.running){
+h+='<div style="font-size:8px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:6px">Spülmaschine</div><div style="font-size:24px;font-weight:900;color:var(--r);margin-bottom:5px;letter-spacing:-1px">'+S.texts.dirty+'</div><div style="font-size:10px;color:var(--t2);margin-bottom:18px">Geschirr muss eingeräumt werden!</div><button class="bt Bg" style="padding:13px 26px;font-size:14px;border-radius:11px" onclick="doS()">✅ Fertig eingeräumt</button>';
+}else{
+h+='<div style="font-size:8px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:6px">Jetzt dran</div><div style="font-size:38px;margin-bottom:6px">'+S.avatars[S.turn]+'</div><div style="font-size:22px;font-weight:900;color:'+c+';letter-spacing:-1px;margin-bottom:2px">'+S.names[S.turn]+'</div><div style="font-size:10px;color:var(--t2);margin-bottom:16px">Finger auf Sensor oder manuell punkten</div>';
+h+='<div style="display:flex;align-items:center;gap:7px;justify-content:center;flex-wrap:wrap"><button class="bt Bd" style="padding:13px 24px;font-size:14px;border-radius:11px" onclick="doP('+S.turn+')">🪙 +1 Punkt</button><button class="bt Bm" onclick="doK()">⏭ Skip</button></div>';
+h+='<div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.04)"><div style="font-size:8px;color:var(--t3);letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;font-weight:600">Jemand anderes?</div><div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap">';
+for(i=0;i<n;i++){if(i!==S.turn)h+='<div onclick="doP('+i+')" style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 11px;background:var(--g);border:1px solid var(--gb);border-radius:9px;cursor:pointer;min-width:58px"><span style="font-size:18px">'+S.avatars[i]+'</span><b style="font-size:8px;font-weight:700;color:'+pc(i)+'">'+S.names[i]+'</b></div>';}
+h+='</div></div>';}
+h+='</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">';
+for(i=0;i<n;i++){
+var a=S.turn===i&&!S.running,sk=S.streaks&&S.streaks[i]>=2;
+h+='<div class="C" style="border-radius:10px;padding:11px;position:relative;cursor:pointer" onclick="'+(!S.running?'doP('+i+')':'')+'">';
+if(a)h+='<div style="position:absolute;top:7px;right:7px;font-size:7px;font-weight:800;padding:2px 5px;border-radius:7px;color:'+pc(i)+';background:'+pc(i)+'15;letter-spacing:1px">DRAN</div>';
+if(sk)h+='<div style="position:absolute;'+(a?'top:22px':'top:7px')+';right:7px;font-size:8px;font-weight:800;padding:2px 5px;border-radius:7px;background:rgba(255,77,106,.12);color:var(--r)">🔥'+S.streaks[i]+'x</div>';
+h+='<div style="display:flex;justify-content:space-between;align-items:flex-start"><span style="font-size:18px">'+S.avatars[i]+'</span><span style="font-size:22px;font-weight:900;color:'+pc(i)+';letter-spacing:-1px">'+S.scores[i]+'</span></div>';
+h+='<div style="font-size:9px;font-weight:700;color:'+pc(i)+';margin-top:5px;letter-spacing:.5px">'+S.names[i]+'</div>';
+h+='<div style="height:3px;background:rgba(255,255,255,.04);border-radius:2px;margin-top:5px;overflow:hidden"><div style="height:100%;width:'+(m>0?S.scores[i]/m*100:0)+'%;background:linear-gradient(90deg,'+pc(i)+','+plc(i)+');border-radius:2px"></div></div></div>';}
+h+='</div>';e.innerHTML=h;
+}
+
+function rR(){
+var e=document.getElementById("Vr"),n=NN(),m=1,t=0,rk=[],i;
+for(i=0;i<n;i++){t+=S.scores[i];if(S.scores[i]>m)m=S.scores[i];rk.push({n:S.names[i],s:S.scores[i],i:i});}
+rk.sort(function(a,b){return b.s-a.s});
+var ic=["👑","🥈","🥉"],rc=["#FFD700","#C0C0C0","#CD7F32"];
+var topS=rk[0].s,tied=rk.length>1&&rk[1].s===topS;
+var h='<div style="text-align:center;margin-bottom:14px"><div style="font-size:24px;margin-bottom:3px">🏆</div><div style="font-size:16px;font-weight:900;color:var(--d)">Highscores</div></div>';
+for(i=0;i<n;i++){var p=rk[i],medal=i<3?(ic[i]):(i+1)+".",mcol=i<3?rc[i]:"var(--t3)";h+='<div class="C" style="border-radius:10px;padding:11px 13px;display:flex;align-items:center;gap:11px'+(i===0&&!tied&&topS>0?';border-color:rgba(255,215,0,.1)':'')+'"><div style="font-size:15px;width:28px;text-align:center;color:'+mcol+'">'+medal+'</div><span style="font-size:20px">'+S.avatars[p.i]+'</span><div style="flex:1;min-width:0"><div style="font-size:10px;font-weight:700;color:'+pc(p.i)+'">'+p.n+(S.streaks&&S.streaks[p.i]>=2?' <span style="color:var(--r)">🔥'+S.streaks[p.i]+'x</span>':'')+'</div><div style="height:4px;background:rgba(255,255,255,.04);border-radius:2px;margin-top:4px;overflow:hidden"><div style="height:100%;width:'+(m>0?p.s/m*100:0)+'%;background:linear-gradient(90deg,'+pc(p.i)+','+plc(p.i)+');border-radius:2px"></div></div></div><div style="font-size:18px;font-weight:900;color:'+pc(p.i)+';letter-spacing:-1px">'+p.s+'</div></div>';}
+var cols=Math.min(n,3);
+h+='<div style="display:grid;grid-template-columns:repeat('+cols+',1fr);gap:5px;margin-top:12px"><div class="C" style="border-radius:10px;padding:10px;text-align:center"><div style="font-size:13px">🪙</div><div style="font-size:14px;font-weight:900;color:var(--d)">'+t+'</div><div style="font-size:7px;color:var(--t3);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px">Total</div></div>';
+if(!tied&&topS>0){h+='<div class="C" style="border-radius:10px;padding:10px;text-align:center"><div style="font-size:13px">👑</div><div style="font-size:11px;font-weight:900;color:'+pc(rk[0].i)+'">'+rk[0].n+'</div><div style="font-size:7px;color:var(--t3);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px">Leader</div></div>';}
+else{h+='<div class="C" style="border-radius:10px;padding:10px;text-align:center"><div style="font-size:13px">🤝</div><div style="font-size:11px;font-weight:900;color:var(--t2)">'+(topS>0?'Gleichstand':'—')+'</div><div style="font-size:7px;color:var(--t3);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px">'+(topS>0?'Gleichstand':'Leader')+'</div></div>';}
+if(cols>=3){h+='<div class="C" style="border-radius:10px;padding:10px;text-align:center"><div style="font-size:13px">📊</div><div style="font-size:14px;font-weight:900;color:var(--l)">'+(n>0?(t/n).toFixed(1):'0')+'</div><div style="font-size:7px;color:var(--t3);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px">Schnitt</div></div>';}
+h+='</div>';
+if(S.log&&S.log.length>0){
+h+='<div class="C" style="margin-top:10px"><div class="ct"><span>📋 Letzte Aktionen</span></div><div class="cb">';
+var lg=S.log.slice().reverse().slice(0,15);
+for(i=0;i<lg.length;i++){var l=lg[i],pi=l.p;if(pi<n)h+='<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-top:1px solid rgba(255,255,255,.03)'+(i===0?';border-top:0':'')+'"><span style="font-size:14px">'+(S.avatars[pi]||'?')+'</span><div style="flex:1"><span style="font-size:10px;font-weight:700;color:'+pc(pi)+'">'+(S.names[pi]||'?')+'</span><span style="font-size:9px;color:var(--t2)"> +1</span></div><span style="font-size:8px;color:var(--t3)">'+ago(l.t)+'</span></div>';}
+h+='</div></div>';}
+e.innerHTML=h;
+}
+
+function rC(){
+ed=false;apI=-1;var ts=[["players","👤 Spieler"],["rewards","🎁 Belohnung"],["finger","👆 Finger"],["texts","💬 Texte"],["display","📺 Display"],["sound","🔊 Sound"],["network","🌐 Netzwerk"],["update","🔄 Update"],["system","🔧 System"]],h='<div class="tb">',i;
+for(i=0;i<ts.length;i++)h+='<span class="ta'+(CF===ts[i][0]?' on':'')+'" onclick="CF=\''+ts[i][0]+'\';rC()">'+ts[i][1]+'</span>';
+h+='</div><div id="cc"></div>';document.getElementById("Vc").innerHTML=h;
+var fn={players:cP,rewards:cRe,finger:cF,texts:cT,display:cD,sound:cSo,network:cN,update:cU,system:cS};fn[CF](document.getElementById("cc"));
+}
+
+function cP(e){
+var n=NN(),h='<div class="C"><div class="ct"><span>Spieler ('+n+')</span><div id="pB"><button class="bt bs Bb" onclick="eN()">✏️</button></div></div><div class="cb"><div id="pL">';
+for(var i=0;i<n;i++)h+='<div class="cr" id="pr'+i+'"><span style="font-size:18px;cursor:pointer" onclick="pA('+i+')">'+S.avatars[i]+'</span><span style="font-size:7px;color:var(--t3);width:22px;font-weight:700">ID'+(i+1)+'</span><span style="font-size:11px;font-weight:800;color:'+pc(i)+';flex:1">'+S.names[i]+'</span><button class="bt bx '+bc(i)+'" onclick="sP('+i+')" style="margin-left:auto">'+S.scores[i]+'</button></div>';
+h+='</div><div style="display:flex;gap:5px;margin-top:8px">';
+if(n<8)h+='<button class="bt bs Bg" onclick="addP()">+ Spieler</button>';
+if(n>2)h+='<button class="bt bs Br" onclick="showRM()">- Entfernen</button>';
+h+='</div><div class="ch">💡 Emoji antippen = Avatar. Min 2, max 8 Spieler.</div></div></div>';e.innerHTML=h;
+}
+function eN(){ed=true;var n=NN(),h='',i;
+for(i=0;i<n;i++)h+='<div class="cr" id="pr'+i+'"><span style="font-size:18px;cursor:pointer" onclick="pA('+i+')">'+S.avatars[i]+'</span><input class="in" id="en'+i+'" value="'+S.names[i]+'" maxlength="10" style="color:'+pc(i)+';flex:1"></div>';
+document.getElementById("pL").innerHTML=h;
+document.getElementById("pB").innerHTML='<div style="display:flex;gap:4px"><button class="bt bs Bg" onclick="sN()">✓</button><button class="bt bs Bm" onclick="rC()">✗</button></div>';}
+function sN(){ed=false;var nm=[],i;for(i=0;i<NN();i++){var el=document.getElementById("en"+i);if(el)nm.push(el.value.toUpperCase().slice(0,10));}S.names=nm;api("names","PUT",{names:nm,avatars:S.avatars});T("Namen gespeichert!");rC();}
+function addP(){var n=NN();if(n>=8){T("Max 8!","er");return;}S.names.push("SPIELER"+(n+1));S.avatars.push(AV[n%AV.length]);S.scores.push(0);S.streaks.push(0);S.fp.push(false);S.rewards.push({"10":"Belohnung 🎁","20":"Größere Belohnung 🌟","50":"Super Belohnung! 🎉","100":"Mega Belohnung!! 🏆"});api("names","PUT",{names:S.names,avatars:S.avatars});T("+1 Spieler","ok");setTimeout(rC,500);}
+function showRM(){var n=NN(),h='<div style="background:rgba(255,77,106,.05);border:1px solid rgba(255,77,106,.1);border-radius:9px;padding:14px"><div style="font-size:11px;font-weight:800;color:var(--r);margin-bottom:8px">Spieler entfernen?</div><div style="display:flex;flex-direction:column;gap:4px">',i;for(i=0;i<n;i++)h+='<button class="bt bx Br" onclick="rmP('+i+')">'+S.avatars[i]+' '+S.names[i]+' ('+S.scores[i]+' Punkte)</button>';h+='<button class="bt bs Bm" onclick="rC()" style="margin-top:4px">Abbrechen</button></div></div>';document.getElementById("pL").innerHTML=h;}
+function rmP(i){if(NN()<=2){T("Min 2!","er");return;}S.names.splice(i,1);S.avatars.splice(i,1);S.scores.splice(i,1);S.streaks.splice(i,1);S.fp.splice(i,1);S.rewards.splice(i,1);if(S.turn>=S.names.length)S.turn=0;api("names","PUT",{names:S.names,avatars:S.avatars});T("Spieler entfernt","er");setTimeout(rC,500);}
+function sP(i){T(S.names[i]+": "+S.scores[i]+" Punkte","in");}
+function pA(i){
+if(apI===i){apI=-1;var x=document.getElementById("apk");if(x)x.remove();ed=false;return;}
+apI=i;ed=true;
+var x=document.getElementById("apk");if(x)x.remove();
+var target=document.getElementById("pr"+i);
+if(!target)return;
+var d=document.createElement("div");d.id="apk";d.className="ap";var h='',j;
+for(j=0;j<AV.length;j++)h+='<span class="ao'+(S.avatars[i]===AV[j]?' se':'')+'" onclick="sA('+i+',\''+AV[j]+'\')">'+AV[j]+'</span>';
+d.innerHTML=h;target.after(d);
+}
+function sA(i,a){S.avatars[i]=a;apI=-1;ed=false;api("names","PUT",{names:S.names,avatars:S.avatars});T("Avatar geändert!");rC();}
+
+function cRe(e){
+var n=NN(),h='<div class="C"><div class="ct"><span>Belohnungen</span></div><div class="cb">',i;
+for(i=0;i<n;i++){var rw=S.rewards[i]||{};var keys=Object.keys(rw).sort(function(a,b){return parseInt(a)-parseInt(b)});var hasRw=keys.length>0;
+h+='<div class="cr" style="flex-direction:column;align-items:flex-start;padding:12px 0;border-top:1px solid rgba(255,255,255,.06)'+(i===0?';border-top:0':'')+'"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;width:100%;justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:18px">'+S.avatars[i]+'</span><span style="font-size:12px;font-weight:800;color:'+pc(i)+'">'+S.names[i]+'</span></div><div style="display:flex;gap:4px"><button class="bt bx Bb" onclick="eRe('+i+')">✏️</button><span class="sw'+(hasRw?' on':'')+'" onclick="tgRe('+i+')"></span></div></div>';
+h+='<div id="reL'+i+'" style="width:100%">';
+if(!hasRw){h+='<div style="font-size:9px;color:var(--t3);padding:4px 0">Keine Belohnungen aktiv</div>';}
+else{h+='<div style="display:grid;grid-template-columns:auto 1fr;gap:4px 8px;align-items:center">';
+for(var j=0;j<keys.length;j++){h+='<div style="font-size:10px;font-weight:700;color:var(--d)">'+keys[j]+' Pkt</div><div style="font-size:10px;background:rgba(255,255,255,.02);padding:4px 6px;border-radius:4px">'+rw[keys[j]]+'</div>';}
+h+='</div>';}
+h+='</div></div>';}
+h+='<div class="ch">💡 Punkte-Schwellen und Belohnungstexte pro Spieler anpassbar. Schalter = An/Aus.</div></div></div>';e.innerHTML=h;
+}
+function tgRe(i){
+var rw=S.rewards[i]||{};
+if(Object.keys(rw).length>0){S.rewards[i]={};api("rewards","PUT",{player:i,rewards:{}});T(S.names[i]+": Belohnungen deaktiviert","er");}
+else{S.rewards[i]={"10":"Belohnung 🎁","20":"Größere Belohnung 🌟","50":"Super Belohnung! 🎉","100":"Mega Belohnung!! 🏆"};api("rewards","PUT",{player:i,rewards:S.rewards[i]});T(S.names[i]+": Belohnungen aktiviert","ok");}
+rC();
+}
+function eRe(i){
+ed=true;var rw=S.rewards[i]||{};var keys=Object.keys(rw).sort(function(a,b){return parseInt(a)-parseInt(b)});
+var h='<div id="reRows'+i+'">';
+for(var j=0;j<keys.length;j++){h+='<div class="reRow" style="display:flex;gap:4px;align-items:center;margin-bottom:4px"><input class="in rePts" data-i="'+i+'" style="width:50px;padding:4px 6px;font-size:11px;text-align:center" value="'+keys[j]+'" placeholder="Pkt"><input class="in reTxt" data-i="'+i+'" style="flex:1;padding:4px 6px;font-size:11px" value="'+rw[keys[j]]+'" placeholder="Belohnungstext"><button class="bt bx Br" onclick="this.parentElement.remove()">✗</button></div>';}
+h+='</div>';
+h+='<div style="display:flex;gap:4px;margin-top:6px"><button class="bt bx Bg" onclick="addReRow('+i+')">+ Zeile</button><button class="bt bs Bg" onclick="sRe('+i+')">✓ Speichern</button><button class="bt bs Bm" onclick="rC()">✗</button></div>';
+document.getElementById("reL"+i).innerHTML=h;
+}
+function addReRow(i){
+var c=document.getElementById("reRows"+i);
+var d=document.createElement("div");d.className="reRow";d.style="display:flex;gap:4px;align-items:center;margin-bottom:4px";
+d.innerHTML='<input class="in rePts" data-i="'+i+'" style="width:50px;padding:4px 6px;font-size:11px;text-align:center" value="" placeholder="Pkt"><input class="in reTxt" data-i="'+i+'" style="flex:1;padding:4px 6px;font-size:11px" value="" placeholder="Belohnungstext"><button class="bt bx Br" onclick="this.parentElement.remove()">✗</button>';
+c.appendChild(d);
+}
+function sRe(i){ed=false;var rows=document.querySelectorAll('#reRows'+i+' .reRow'),rw={},j;
+for(j=0;j<rows.length;j++){var pts=rows[j].querySelector('.rePts').value.trim();var txt=rows[j].querySelector('.reTxt').value.trim();if(pts&&txt)rw[pts]=txt;}
+S.rewards[i]=rw;api("rewards","PUT",{player:i,rewards:rw});T("Belohnungen gespeichert!");rC();}
+
+function cF(e){var n=NN(),h='<div class="C"><div class="ct"><span>Fingerprint</span></div><div class="cb">',i;
+for(i=0;i<n;i++){var ok=S.fp&&S.fp[i];h+='<div class="cr" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:7px"><span style="font-size:16px">'+S.avatars[i]+'</span><div><div style="font-size:9px;font-weight:800;color:'+pc(i)+'">'+S.names[i]+'</div><div style="font-size:7px;color:var(--t3)">Slot '+(i+1)+'</div></div></div><div style="display:flex;align-items:center;gap:4px"><span style="font-size:8px;font-weight:700;padding:2px 5px;border-radius:5px;background:'+(ok?'rgba(0,214,143,.1);color:var(--n)':'rgba(255,77,106,.1);color:var(--r)')+'">'+(ok?'✓ OK':'✗ Leer')+'</span><button class="bt bx Bb" onclick="fpE('+i+')">Neu</button>'+(ok?'<button class="bt bx Br" onclick="fpD('+i+')">✗</button>':'')+'</div></div>';}
+h+='<div class="ch">💡 Finger 2x auf Sensor legen. LED zeigt Status.</div></div></div>';e.innerHTML=h;}
+function fpE(i){T("Finger auf Sensor legen...","in");var x=new XMLHttpRequest();x.timeout=30000;x.open("POST","/api/fp/enroll");x.setRequestHeader("Content-Type","application/json");x.onload=function(){try{var d=JSON.parse(x.responseText);if(d.ok){S.fp[i]=true;T(S.names[i]+" registriert!","ok");rC();}else{T("Fehler: "+(d.error||"unbekannt"),"er");}}catch(e){T("Fehler","er");}};x.onerror=function(){T("Verbindungsfehler","er");};x.ontimeout=function(){T("Timeout - nochmal versuchen","er");};x.send(JSON.stringify({slot:i}));}
+function fpD(i){api("fp/delete","POST",{slot:i});S.fp[i]=false;T("Gelöscht","er");rC();}
+
+function cT(e){var ks=Object.keys(TK),h='<div class="C"><div class="ct"><span>Display-Texte</span><div id="tB"><button class="bt bs Bb" onclick="eT()">✏️</button></div></div><div class="cb"><div id="tL">',i;for(i=0;i<ks.length;i++)h+='<div style="margin-bottom:6px"><div style="font-size:9px;color:var(--t2);margin-bottom:2px">'+TK[ks[i]]+'</div><div class="ro">'+S.texts[ks[i]]+'</div></div>';h+='</div><div class="ch">💡 {NAME}=Spieler {SCORE}=Punkte</div></div></div>';e.innerHTML=h;}
+function eT(){ed=true;var ks=Object.keys(TK),h='',i;for(i=0;i<ks.length;i++)h+='<div style="margin-bottom:6px"><div style="font-size:9px;color:var(--t2);margin-bottom:2px">'+TK[ks[i]]+'</div><input class="in" id="et_'+ks[i]+'" value="'+S.texts[ks[i]]+'" maxlength="40"></div>';document.getElementById("tL").innerHTML=h;document.getElementById("tB").innerHTML='<div style="display:flex;gap:4px"><button class="bt bs Bg" onclick="sT()">✓</button><button class="bt bs Bm" onclick="rC()">✗</button><button class="bt bs Bh" onclick="xT()">↺</button></div>';}
+function sT(){ed=false;var t={},ks=Object.keys(TK),i;for(i=0;i<ks.length;i++)t[ks[i]]=document.getElementById("et_"+ks[i]).value;S.texts=t;api("texts","PUT",t);T("Texte gespeichert!");rC();}
+function xT(){var ks=Object.keys(TK),i;for(i=0;i<ks.length;i++)document.getElementById("et_"+ks[i]).value=TD[ks[i]];T("Standard wiederhergestellt","in");}
+
+function cD(e){
+var h='<div class="C"><div class="ct"><span>LED Matrix (MAX7219)</span><div id="dB"><button class="bt bs Bb" onclick="eD()">✏️</button></div></div><div class="cb"><div id="dL">';
+var bright=S.display.brightness||5,p=(bright/15)*100;
+h+='<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--t2)">☀️ Helligkeit</span><span style="font-size:11px;font-weight:800;color:var(--n)">'+bright+'</span></div><div style="height:3px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+p+'%;background:var(--n);border-radius:2px"></div></div></div>';
+h+='</div><div class="ch">💡 MAX7219 Hardware-Helligkeit: 0 (dunkel) bis 15 (hell)</div></div></div>';
+h+='<div class="C"><div class="ct"><span>Text-Animationen</span><div id="aB"><button class="bt bs Bb" onclick="eA()">✏️</button></div></div><div class="cb"><div id="aL">';
+var it=[{k:"scrollSpeed",l:"Scroll Speed",n:10,x:80,u:" ms",c:"⏩"},{k:"scrollCount",l:"Durchläufe",n:1,x:5,u:"x",c:"🔄"},{k:"blinkCount",l:"Blinken",n:1,x:10,u:"x",c:"💡"}],i;
+for(i=0;i<it.length;i++){var s=it[i],p=((S.display[s.k]-s.n)/(s.x-s.n))*100;h+='<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--t2)">'+s.c+' '+s.l+'</span><span style="font-size:11px;font-weight:800;color:var(--l)">'+S.display[s.k]+s.u+'</span></div><div style="height:3px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+p+'%;background:var(--l);border-radius:2px"></div></div></div>';}
+h+='</div><div class="ch">💡 Software-Einstellungen für Text-Animationen im Python-Code</div></div></div>';
+h+='<div class="C"><div class="ct"><span>Bewegungs-Sensor (PIR)</span><div id="mB"><button class="bt bs Bb" onclick="eM()">✏️</button></div></div><div class="cb"><div id="mL"><div class="cr" style="justify-content:space-between"><div style="font-size:10px;color:var(--t2)">📡 PIR aktiviert</div><span class="sw'+(S.pirEnabled?' on':'')+'" onclick="tgPIR()"></span></div>';
+if(S.pirEnabled){h+='<div style="display:flex;justify-content:space-between;margin:8px 0 4px"><span style="font-size:10px;color:var(--t2)">⏱ Display-Timeout</span><span style="font-size:11px;font-weight:800;color:var(--n)">'+S.motionTimeout+'s</span></div><div style="height:3px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+(S.motionTimeout/60*100)+'%;background:var(--n);border-radius:2px"></div></div>';}
+else{h+='<div style="font-size:9px;color:var(--t3);padding:6px 0">Display bleibt dauerhaft an</div>';}
+h+='</div><div class="ch">💡 SR602 Mini PIR Sensor auf GPIO 27. Display schaltet nach Timeout ohne Bewegung aus.</div></div></div>';e.innerHTML=h;
+}
+function eD(){ed=true;var bright=S.display.brightness||5;var h='<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--t2)">☀️ Helligkeit</span><span id="dv_brightness" style="font-size:11px;font-weight:800;color:var(--n)">'+bright+'</span></div><input type="range" min="0" max="15" value="'+bright+'" id="ds_brightness" oninput="document.getElementById(\'dv_brightness\').textContent=this.value"></div>';document.getElementById("dL").innerHTML=h;document.getElementById("dB").innerHTML='<div style="display:flex;gap:4px"><button class="bt bs Bg" onclick="sD()">✓</button><button class="bt bs Bm" onclick="rC()">✗</button></div>';}
+function sD(){ed=false;S.display.brightness=parseInt(document.getElementById("ds_brightness").value);api("display","PUT",S.display);T("Helligkeit gespeichert!");rC();}
+function eA(){ed=true;var it=[{k:"scrollSpeed",l:"Scroll Speed",n:10,x:80,u:" ms",c:"⏩"},{k:"scrollCount",l:"Durchläufe",n:1,x:5,u:"x",c:"🔄"},{k:"blinkCount",l:"Blinken",n:1,x:10,u:"x",c:"💡"}],h='',i;for(i=0;i<it.length;i++){var s=it[i];h+='<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--t2)">'+s.c+' '+s.l+'</span><span id="av_'+s.k+'" style="font-size:11px;font-weight:800;color:var(--l)">'+S.display[s.k]+s.u+'</span></div><input type="range" min="'+s.n+'" max="'+s.x+'" value="'+S.display[s.k]+'" id="as_'+s.k+'" oninput="document.getElementById(\'av_'+s.k+'\').textContent=this.value+\''+s.u+'\'"></div>';}document.getElementById("aL").innerHTML=h;document.getElementById("aB").innerHTML='<div style="display:flex;gap:4px"><button class="bt bs Bg" onclick="sAn()">✓</button><button class="bt bs Bm" onclick="rC()">✗</button></div>';}
+function sAn(){ed=false;var ks=["scrollSpeed","scrollCount","blinkCount"],i;for(i=0;i<ks.length;i++)S.display[ks[i]]=parseInt(document.getElementById("as_"+ks[i]).value);api("display","PUT",S.display);T("Animationen gespeichert!");rC();}
+function tgPIR(){S.pirEnabled=!S.pirEnabled;var d={pirEnabled:S.pirEnabled};api("display","PUT",d);T(S.pirEnabled?"PIR aktiviert":"PIR deaktiviert - Display dauerhaft an",S.pirEnabled?"ok":"in");rC();}
+function eM(){if(!S.pirEnabled){T("PIR ist deaktiviert","er");return;}ed=true;document.getElementById("mL").innerHTML='<div class="cr" style="justify-content:space-between"><div style="font-size:10px;color:var(--t2)">📡 PIR aktiviert</div><span class="sw on" onclick="tgPIR()"></span></div><div style="display:flex;justify-content:space-between;margin:8px 0 4px"><span style="font-size:10px;color:var(--t2)">⏱ Display-Timeout</span><span id="mv" style="font-size:11px;font-weight:800;color:var(--n)">'+S.motionTimeout+'s</span></div><input type="range" min="5" max="120" value="'+S.motionTimeout+'" id="mi" oninput="document.getElementById(\'mv\').textContent=this.value+\'s\'">';document.getElementById("mB").innerHTML='<div style="display:flex;gap:4px"><button class="bt bs Bg" onclick="sM()">✓</button><button class="bt bs Bm" onclick="rC()">✗</button></div>';}
+function sM(){ed=false;S.motionTimeout=parseInt(document.getElementById("mi").value);var d={};for(var k in S.display)d[k]=S.display[k];d.motionTimeout=S.motionTimeout;d.pirEnabled=S.pirEnabled;api("display","PUT",d);T("Einstellungen gespeichert!");rC();}
+
+function cSo(e){
+var sn=S.sound||{enabled:true,volume:3,onStart:true,onScore:true,onMilestone:true};
+var h='<div class="C"><div class="ct"><span>Sound</span></div><div class="cb">';
+h+='<div class="cr" style="justify-content:space-between"><div style="font-size:10px;color:var(--t2)">🔊 Sound aktiviert</div><span class="sw'+(sn.enabled?' on':'')+'" onclick="tgS(\'enabled\')"></span></div>';
+h+='<div style="margin:10px 0"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--t2)">🔈 Lautstärke</span><span id="sv" style="font-size:11px;font-weight:800;color:var(--n)">'+sn.volume+'</span></div><input type="range" min="1" max="5" value="'+sn.volume+'" oninput="document.getElementById(\'sv\').textContent=this.value;S.sound.volume=parseInt(this.value);api(\'sound\',\'PUT\',S.sound)"></div>';
+h+='<div style="font-size:9px;font-weight:700;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin:12px 0 6px">Events</div>';
+var evts=[["onStart","▶ Spiel gestartet"],["onScore","🪙 Punkt vergeben"],["onMilestone","🌟 Meilenstein erreicht"]];
+for(var i=0;i<evts.length;i++)h+='<div class="cr" style="justify-content:space-between"><div style="font-size:10px;color:var(--t2)">'+evts[i][1]+'</div><span class="sw'+(sn[evts[i][0]]?' on':'')+'" onclick="tgS(\''+evts[i][0]+'\')"></span></div>';
+h+='<div style="margin-top:10px"><button class="bt Bb bf" onclick="api(\'sound/test\',\'POST\');T(\'🔊 Test...\',\'in\')">🔊 Sound testen</button></div>';
+h+='<div class="ch">💡 PAM8403 Verstärker mit MOSFET-Steuerung auf GPIO 14/25</div></div></div>';e.innerHTML=h;
+}
+function tgS(k){S.sound[k]=!S.sound[k];api("sound","PUT",S.sound);rC();}
+
+function cN(e){
+var nc=S.network||{dhcp:true,ip:"",gateway:"",dns:""};
+var h='<div class="C"><div class="ct"><span>WLAN</span><div id="wB"><button class="bt bs Bb" onclick="eW()">✏️</button></div></div><div class="cb"><div id="wL"><div style="margin-bottom:6px"><div style="font-size:9px;color:var(--t2);margin-bottom:2px">📶 Netzwerk</div><div class="ro">'+(S.wifi&&S.wifi.ssid||"—")+'</div></div><div style="margin-bottom:6px"><div style="font-size:9px;color:var(--t2);margin-bottom:2px">🔒 Passwort</div><div class="ro" style="color:var(--t3)">••••••••</div></div><div style="display:flex;align-items:center;gap:6px;padding:5px 0;margin-bottom:6px"><span style="width:6px;height:6px;border-radius:50%;display:inline-block;background:'+(S.wifi_connected?'var(--n)':'var(--r)')+';box-shadow:0 0 5px '+(S.wifi_connected?'var(--n)':'var(--r)')+'"></span><span style="font-size:9px;font-weight:600;color:'+(S.wifi_connected?'var(--n)':'var(--r)')+'">'+(S.wifi_connected?'Verbunden':'Getrennt')+(S.wifi_failures>0?' ('+S.wifi_failures+' Fehler)':'')+'</span></div></div></div></div>';
+h+='<div class="C"><div class="ct"><span>IP-Konfiguration</span><div id="nB"><button class="bt bs Bb" onclick="eN2()">✏️</button></div></div><div class="cb"><div id="nL"><div class="cr" style="justify-content:space-between"><div style="font-size:10px;color:var(--t2)">📡 DHCP (automatisch)</div><span class="sw'+(nc.dhcp?' on':'')+'" onclick="return"></span></div>';
+if(!nc.dhcp){h+='<div style="margin-top:8px;display:grid;grid-template-columns:auto 1fr;gap:6px;align-items:center"><div style="font-size:9px;color:var(--t2)">IP:</div><div class="ro">'+nc.ip+'</div><div style="font-size:9px;color:var(--t2)">Gateway:</div><div class="ro">'+nc.gateway+'</div><div style="font-size:9px;color:var(--t2)">DNS:</div><div class="ro">'+nc.dns+'</div></div>';}
+h+='<div style="margin-top:6px"><div style="font-size:9px;color:var(--t2);margin-bottom:2px">🌐 Aktuelle IP</div><div class="ro" style="color:var(--d);font-weight:700">'+(S.ip||"—")+'</div></div><div style="margin-top:6px"><div style="font-size:9px;color:var(--t2);margin-bottom:2px">🔗 Browser</div><div class="ro" style="color:var(--n);font-weight:600">http://'+(S.mdns||"dishdash.local")+'</div></div></div><div class="ch">💡 Statische IP hilft bei DHCP-Problemen</div></div></div>';e.innerHTML=h;}
+function eW(){ed=true;document.getElementById("wL").innerHTML='<div style="margin-bottom:6px"><div style="font-size:9px;color:var(--t2);margin-bottom:2px">📶 SSID</div><input class="in" id="ws" value="'+(S.wifi&&S.wifi.ssid||"")+'"></div><div style="margin-bottom:6px"><div style="font-size:9px;color:var(--t2);margin-bottom:2px">🔒 Passwort</div><div style="position:relative"><input class="in" id="wp" type="password" placeholder="Passwort"><span onclick="var x=document.getElementById(\'wp\');x.type=x.type===\'password\'?\'text\':\'password\'" style="position:absolute;right:7px;top:50%;transform:translateY(-50%);cursor:pointer">👁</span></div></div>';document.getElementById("wB").innerHTML='<div style="display:flex;gap:4px"><button class="bt bs Bg" onclick="sW()">✓</button><button class="bt bs Bm" onclick="rC()">✗</button></div>';}
+function sW(){ed=false;api("wifi","PUT",{ssid:document.getElementById("ws").value,password:document.getElementById("wp").value});T("WLAN gespeichert! Neustart...");setTimeout(function(){api("reboot","POST")},1e3);}
+function eN2(){ed=true;var nc=S.network||{dhcp:true,ip:"",gateway:"",dns:""};var h='<div class="cr" style="justify-content:space-between"><div style="font-size:10px;color:var(--t2)">📡 DHCP (automatisch)</div><span class="sw'+(nc.dhcp?' on':'')+'" onclick="tgDHCP()" id="dhcpSW"></span></div><div id="staticIP" style="display:'+(nc.dhcp?'none':'block')+';margin-top:8px;display:grid;grid-template-columns:auto 1fr;gap:6px;align-items:center"><div style="font-size:9px;color:var(--t2)">IP:</div><input class="in" id="nip" value="'+nc.ip+'" placeholder="192.168.1.100" style="padding:4px 6px;font-size:11px"><div style="font-size:9px;color:var(--t2)">Gateway:</div><input class="in" id="ngw" value="'+nc.gateway+'" placeholder="192.168.1.1" style="padding:4px 6px;font-size:11px"><div style="font-size:9px;color:var(--t2)">DNS:</div><input class="in" id="ndns" value="'+nc.dns+'" placeholder="8.8.8.8" style="padding:4px 6px;font-size:11px"></div>';document.getElementById("nL").innerHTML=h;document.getElementById("nB").innerHTML='<div style="display:flex;gap:4px"><button class="bt bs Bg" onclick="sN2()">✓</button><button class="bt bs Bm" onclick="rC()">✗</button></div>';}
+function tgDHCP(){var dhcp=document.getElementById("dhcpSW").classList.toggle("on");document.getElementById("staticIP").style.display=dhcp?"none":"grid";}
+function sN2(){ed=false;var dhcp=document.getElementById("dhcpSW").classList.contains("on");var nc={dhcp:dhcp};if(!dhcp){nc.ip=document.getElementById("nip").value;nc.gateway=document.getElementById("ngw").value;nc.dns=document.getElementById("ndns").value;}S.network=nc;api("network","PUT",nc);T("Netzwerk gespeichert! Neustart...");setTimeout(function(){api("reboot","POST")},2e3);}
+
+function cU(e){
+var h='<div class="C"><div class="ct"><span>OTA Update</span></div><div class="cb">';
+h+='<div id="otaStatus" style="margin-bottom:12px"></div>';
+h+='<div style="margin-bottom:12px"><button class="bt Bb bf" onclick="otaCheck()">🔍 Nach Updates suchen</button></div>';
+h+='<div id="otaResult"></div>';
+h+='<div style="margin-top:12px;padding:8px;background:rgba(255,255,255,.02);border-radius:5px;border:1px solid rgba(255,255,255,.03)"><div style="font-size:9px;color:var(--t2);margin-bottom:4px">Installierte Version</div><div style="font-size:11px;font-weight:700;color:var(--n)" id="otaCurVer">...</div></div>';
+h+='<div class="ch">💡 Updates werden von GitHub geladen und per WLAN installiert.</div></div></div>';e.innerHTML=h;
+fetch("/api/ota/version").then(function(r){return r.json()}).then(function(d){document.getElementById("otaCurVer").textContent=d.version||"?";}).catch(function(){});}
+var OTA_REPO="https://raw.githubusercontent.com/eilovliz-pixel/dishdash/main/dist/";
+function otaCheck(){
+var se=document.getElementById("otaStatus");
+se.innerHTML='<div style="background:rgba(77,166,255,.1);border:1px solid rgba(77,166,255,.2);border-radius:8px;padding:12px;text-align:center"><div class="spinner"></div> <span style="color:var(--l);font-weight:600">Suche Updates...</span></div>';
+document.getElementById("otaResult").innerHTML="";
+Promise.all([fetch("/api/ota/version").then(function(r){return r.json()}),fetch(OTA_REPO+"version.json?t="+Date.now()).then(function(r){return r.json()})]).then(function(res){
+var cur=res[0].version,remote=res[1];var lat=remote.version;
+if(cur===lat){se.innerHTML='<div style="background:rgba(0,214,143,.1);border:1px solid rgba(0,214,143,.2);border-radius:8px;padding:12px;text-align:center;color:var(--n);font-weight:600">✅ Aktuell! Version '+cur+'</div>';}
+else{se.innerHTML='<div style="background:rgba(255,183,64,.1);border:1px solid rgba(255,183,64,.2);border-radius:8px;padding:12px;text-align:center"><div style="color:var(--d);font-weight:700;margin-bottom:6px">🆕 Update verfügbar!</div><div style="font-size:10px;color:var(--t2)">'+cur+' → <b style="color:var(--n)">'+lat+'</b></div></div>';
+document.getElementById("otaResult").innerHTML='<button class="bt Bg bf" onclick="otaInstall()" style="margin-top:8px">📦 Update installieren</button>';}
+}).catch(function(e){se.innerHTML='<div style="background:rgba(255,77,106,.1);border:1px solid rgba(255,77,106,.2);border-radius:8px;padding:12px;text-align:center;color:var(--r);font-weight:600">❌ Verbindungsfehler: '+e+'</div>';});
+}
+function otaInstall(){
+var se=document.getElementById("otaStatus");
+se.innerHTML='<div style="background:rgba(77,166,255,.1);border:1px solid rgba(77,166,255,.2);border-radius:8px;padding:12px;text-align:center"><div class="spinner"></div> <span style="color:var(--l);font-weight:600">Lade Version-Info...</span></div>';
+document.getElementById("otaResult").innerHTML="";
+fetch(OTA_REPO+"version.json?t="+Date.now()).then(function(r){return r.json()}).then(function(remote){
+var files=remote.files||["app.mpy","dashboard.html"];var ver=remote.version;
+return otaUploadFiles(files,0,se).then(function(){return ver;});
+}).then(function(ver){
+se.innerHTML='<div style="background:rgba(0,214,143,.1);border:1px solid rgba(0,214,143,.2);border-radius:8px;padding:12px;text-align:center"><div style="color:var(--n);font-weight:700;margin-bottom:4px">✅ Update auf '+ver+' erfolgreich!</div><div style="font-size:9px;color:var(--t3)">Gerät startet neu...</div></div>';
+fetch("/api/reboot",{method:"POST"});setTimeout(function(){location.reload()},8000);
+}).catch(function(e){se.innerHTML='<div style="background:rgba(255,77,106,.1);border:1px solid rgba(255,77,106,.2);border-radius:8px;padding:12px;text-align:center;color:var(--r);font-weight:600">❌ '+e+'</div>';});
+}
+function otaUploadFiles(files,idx,se){
+if(idx>=files.length)return Promise.resolve();
+var fn=files[idx];
+se.innerHTML='<div style="background:rgba(77,166,255,.1);border:1px solid rgba(77,166,255,.2);border-radius:8px;padding:12px;text-align:center"><div class="spinner"></div> <span style="color:var(--l);font-weight:600">Lade '+fn+' ('+(idx+1)+'/'+files.length+')...</span></div>';
+return fetch(OTA_REPO+fn+"?t="+Date.now()).then(function(r){if(!r.ok)throw new Error(fn+" download failed: "+r.status);return r.arrayBuffer()}).then(function(buf){
+var bytes=new Uint8Array(buf);
+se.innerHTML='<div style="background:rgba(77,166,255,.1);border:1px solid rgba(77,166,255,.2);border-radius:8px;padding:12px;text-align:center"><div class="spinner"></div> <span style="color:var(--l);font-weight:600">Übertrage '+fn+' ('+Math.round(bytes.length/1024)+'KB)...</span><div id="otaProg" style="margin-top:6px;height:3px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden"><div id="otaBar" style="height:100%;width:0%;background:var(--n);border-radius:2px;transition:width .2s"></div></div></div>';
+return fetch("/api/ota/start",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({filename:fn})}).then(function(r){return r.json()}).then(function(d){
+if(!d.ok)throw new Error(fn+" start error");
+var CHUNK=1024;var total=Math.ceil(bytes.length/CHUNK);
+function toB64(arr){var s="",i;for(i=0;i<arr.length;i++)s+=String.fromCharCode(arr[i]);return btoa(s);}
+function sendChunk(i){
+if(i>=total)return Promise.resolve();
+var start=i*CHUNK;var end=Math.min(start+CHUNK,bytes.length);
+var b64=toB64(bytes.slice(start,end));
+var pct=Math.round((i+1)/total*100);
+var bar=document.getElementById("otaBar");if(bar)bar.style.width=pct+"%";
+return new Promise(function(resolve){setTimeout(resolve,50)}).then(function(){
+return fetch("/api/ota/chunk",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({filename:fn,data:b64})}).then(function(r){return r.json()}).then(function(d){if(!d.ok)throw new Error(fn+" chunk "+i+" error");return sendChunk(i+1);});
+});}
+return sendChunk(0);
+}).then(function(){return fetch("/api/ota/finish",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({filename:fn})}).then(function(r){return r.json()}).then(function(d){if(!d.ok)throw new Error(fn+" finish error");return otaUploadFiles(files,idx+1,se);});});
+});
+}
+
+function cS(e){var n=NN(),h='<div class="C"><div class="ct"><span>System-Info</span></div><div class="cb">',inf=[["Controller","ESP32-WROOM"],["Firmware","uPy 1.27"],["Sensor","AS608"],["Display","MAX7219 4x"],["Sound","PAM8403 + MOSFET"],["PIR","SR602 Mini"],["IP",S.ip||"—"],["Spieler",""+n],["Version","v"+((window._ov)||"?")]],i;for(i=0;i<inf.length;i++)h+='<div class="ir"><span class="ik">'+inf[i][0]+'</span><span class="iv">'+inf[i][1]+'</span></div>';h+='</div></div>';
+h+='<div class="C"><div class="ct"><span>Aktionen</span></div><div class="cb"><div style="display:flex;flex-direction:column;gap:5px"><button class="bt Bb bf" onclick="api(\'reboot\',\'POST\');T(\'Neustart...\',\'in\')">🔄 Neustart</button><div id="rA"><button class="bt Br bf" onclick="cR()">⚠️ Spiel Reset</button></div><div id="fA"><button class="bt" style="background:linear-gradient(135deg,#dc2626,#b91c1c)" onclick="cFR()">🏭 Factory Reset</button></div></div></div></div>';
+h+='<div class="ch" style="margin-top:8px">💡 <b>App installieren:</b> Teilen → Zum Home-Bildschirm</div>';
+e.innerHTML=h;}
+function cR(){document.getElementById("rA").innerHTML='<div style="background:rgba(255,77,106,.05);border:1px solid rgba(255,77,106,.1);border-radius:9px;padding:14px;text-align:center"><div style="font-size:11px;font-weight:800;color:var(--r);margin-bottom:3px">Spiel zurücksetzen?</div><div style="font-size:9px;color:var(--t2);margin-bottom:10px">Alle Punkte, Streaks und History auf 0!</div><div style="display:flex;gap:5px;justify-content:center"><button class="bt bs Br" onclick="dR()">Ja, Reset</button><button class="bt bs Bm" onclick="rC()">Abbrechen</button></div></div>';}
+function dR(){var n=NN();S.scores=[];S.streaks=[];for(var i=0;i<n;i++){S.scores.push(0);S.streaks.push(0);}S.turn=0;S.running=false;S.log=[];S.lastScorer=-1;api("reset","POST");T("Spiel zurückgesetzt!","ok");rC();}
+function cFR(){document.getElementById("fA").innerHTML='<div style="background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:9px;padding:14px;text-align:center"><div style="font-size:11px;font-weight:800;color:#dc2626;margin-bottom:3px">⚠️ FACTORY RESET ⚠️</div><div style="font-size:9px;color:var(--t2);margin-bottom:10px">Löscht ALLES: Spieler, WLAN, Einstellungen!<br>Gerät startet im Setup-Modus neu.</div><div style="display:flex;gap:5px;justify-content:center"><button class="bt bs" style="background:linear-gradient(135deg,#dc2626,#b91c1c)" onclick="doFR()">Ja, alles löschen</button><button class="bt bs Bm" onclick="rC()">Abbrechen</button></div></div>';}
+function doFR(){T("Factory Reset...","er");api("factory-reset","POST");setTimeout(()=>{alert("Factory Reset abgeschlossen!\\n\\nGerät startet neu im Setup-Modus.\\nVerbinde dich mit WLAN: DISH-DASH-Setup");location.href="/";},1e3);}
+
+function doS(){S.running=false;api("start","POST");R();}
+function doP(i){api("score","POST",{player:i}).then(function(d){if(d){S.scores[i]++;S.turn=(S.turn+1)%NN();S.running=true;R();checkReward(d);}});}
+function doK(){var o=S.turn;S.turn=(S.turn+1)%NN();api("skip","POST");T(S.names[o]+" übersprungen","in");R();}
+setInterval(ld,5e3);ld();
+</script></body></html>
