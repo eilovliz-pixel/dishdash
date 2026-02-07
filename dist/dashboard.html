@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#0a0a0f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Dish Dash"><link rel="manifest" href="/manifest.json"><link rel="icon" href="/icon.svg" type="image/svg+xml"><title>DISH DASH v4.3</title><style>
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#0a0a0f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Dish Dash"><link rel="manifest" href="/manifest.json"><link rel="icon" href="/icon.svg" type="image/svg+xml"><title>DISH DASH</title><style>
 :root{--b:#0a0a0f;--g:rgba(255,255,255,.05);--gb:rgba(255,255,255,.08);--t:#e8e8f0;--t2:#777;--t3:#444;--r:#ff4d6a;--n:#00d68f;--l:#4da6ff;--d:#ffb740;--p:#a855f7;--pk:#ec4899}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{background:var(--b);color:var(--t);font-family:system-ui,sans-serif;overflow-x:hidden}
@@ -38,7 +38,7 @@ input[type=file]{display:none}
 <button class="bt Bg" onclick="hideReward()">OK!</button>
 </div>
 <div class="W">
-<div class="hd"><div class="lo"><i>🍽</i><div><b>Dish Dash</b><small>v4.3</small></div></div><div id="ck" class="ck"></div></div>
+<div class="hd"><div class="lo"><i>🍽</i><div><b>Dish Dash</b><small id="hv">v...</small></div></div><div id="ck" class="ck"></div></div>
 <div class="nv"><a class="on" onclick="go('g')">🎮 Spiel</a><a onclick="go('r')">🏆 Rang</a><a onclick="go('c')">⚙️ Config</a></div>
 <div id="Vg" class="V on"></div><div id="Vr" class="V"></div><div id="Vc" class="V"></div>
 </div><div class="bb"></div>
@@ -58,7 +58,7 @@ function plc(i){return PL[i%PL.length];}
 function bc(i){return BC[i%BC.length];}
 
 function api(p,m,b){var o={method:m||"GET",headers:{"Content-Type":"application/json"}};if(b)o.body=JSON.stringify(b);return fetch("/api/"+p,o).then(function(r){ol=true;return r.json()}).catch(function(){ol=false;return null});}
-function ld(){if(!ed)api("state").then(function(d){if(d&&!d.error){for(var k in d)S[k]=d[k];R();checkReward(d);}});}
+function ld(){if(!ed)api("state").then(function(d){if(d&&!d.error){for(var k in d)S[k]=d[k];R();checkReward(d);}});if(!window._vl){window._vl=1;fetch("/api/ota/version").then(function(r){return r.json()}).then(function(d){var v=d.version||"?";window._ov=v;document.getElementById("hv").textContent="v"+v;document.title="DISH DASH v"+v;}).catch(function(){});}}
 function T(m,t){var e=document.getElementById("to");e.textContent=m;e.className="to to-"+(t||"ok")+" s";setTimeout(function(){e.classList.remove("s")},2e3);}
 function tk(){var d=new Date();document.getElementById("ck").innerHTML=d.toLocaleTimeString("de-AT",{hour:"2-digit",minute:"2-digit"})+"<small>"+d.toLocaleDateString("de-AT",{weekday:"short",day:"numeric",month:"short"})+"</small>";}
 setInterval(tk,1e4);tk();
@@ -306,7 +306,7 @@ return sendChunk(0);
 });
 }
 
-function cS(e){var n=NN(),h='<div class="C"><div class="ct"><span>System-Info</span></div><div class="cb">',inf=[["Controller","ESP32-WROOM"],["Firmware","uPy 1.27"],["Sensor","AS608"],["Display","MAX7219 4x"],["Sound","PAM8403 + MOSFET"],["PIR","SR602 Mini"],["IP",S.ip||"—"],["Spieler",""+n],["Version","v4.3"]],i;for(i=0;i<inf.length;i++)h+='<div class="ir"><span class="ik">'+inf[i][0]+'</span><span class="iv">'+inf[i][1]+'</span></div>';h+='</div></div>';
+function cS(e){var n=NN(),h='<div class="C"><div class="ct"><span>System-Info</span></div><div class="cb">',inf=[["Controller","ESP32-WROOM"],["Firmware","uPy 1.27"],["Sensor","AS608"],["Display","MAX7219 4x"],["Sound","PAM8403 + MOSFET"],["PIR","SR602 Mini"],["IP",S.ip||"—"],["Spieler",""+n],["Version","v"+((window._ov)||"?")]],i;for(i=0;i<inf.length;i++)h+='<div class="ir"><span class="ik">'+inf[i][0]+'</span><span class="iv">'+inf[i][1]+'</span></div>';h+='</div></div>';
 h+='<div class="C"><div class="ct"><span>Aktionen</span></div><div class="cb"><div style="display:flex;flex-direction:column;gap:5px"><button class="bt Bb bf" onclick="api(\'reboot\',\'POST\');T(\'Neustart...\',\'in\')">🔄 Neustart</button><div id="rA"><button class="bt Br bf" onclick="cR()">⚠️ Spiel Reset</button></div><div id="fA"><button class="bt" style="background:linear-gradient(135deg,#dc2626,#b91c1c)" onclick="cFR()">🏭 Factory Reset</button></div></div></div></div>';
 h+='<div class="ch" style="margin-top:8px">💡 <b>App installieren:</b> Teilen → Zum Home-Bildschirm</div>';
 e.innerHTML=h;}
