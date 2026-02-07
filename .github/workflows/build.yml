@@ -1,0 +1,41 @@
+name: Build Dish Dash
+
+"on":
+  push:
+    branches:
+      - main
+    paths:
+      - "app.py"
+      - "dashboard.html"
+      - "version.json"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install mpy-cross
+        run: pip install mpy-cross==1.27.0.post2
+
+      - name: Compile
+        run: |
+          mpy-cross app.py -o dist/app.mpy
+          cp dashboard.html dist/dashboard.html
+          gzip -c dashboard.html > dist/dashboard.gz
+          cp version.json dist/version.json
+
+      - name: Commit
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add dist/
+          git diff --cached --quiet && echo "No changes" || git commit -m "Build dist [skip ci]"
+          git push
