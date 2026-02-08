@@ -88,9 +88,8 @@ h+='</div></div>';}
 h+='</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">';
 for(i=0;i<n;i++){
 var a=S.turn===i&&!S.running,sk=S.streaks&&S.streaks[i]>=2;
-h+='<div class="C" style="border-radius:10px;padding:11px;position:relative;cursor:pointer" onclick="'+(!S.running?'doP('+i+')':'')+'">';
-if(a)h+='<div style="position:absolute;top:7px;right:7px;font-size:7px;font-weight:800;padding:2px 5px;border-radius:7px;color:'+pc(i)+';background:'+pc(i)+'15;letter-spacing:1px">DRAN</div>';
-if(sk)h+='<div style="position:absolute;'+(a?'top:22px':'top:7px')+';right:7px;font-size:8px;font-weight:800;padding:2px 5px;border-radius:7px;background:rgba(255,77,106,.12);color:var(--r)">🔥'+S.streaks[i]+'x</div>';
+h+='<div class="C" style="border-radius:10px;padding:11px;position:relative;cursor:pointer'+(a?';border:1.5px solid '+pc(i)+';box-shadow:0 0 12px '+pc(i)+'25':'')+'" onclick="'+(!S.running?'doP('+i+')':'')+'">';
+if(sk)h+='<div style="position:absolute;top:7px;right:7px;font-size:8px;font-weight:800;padding:2px 5px;border-radius:7px;background:rgba(255,77,106,.12);color:var(--r)">🔥'+S.streaks[i]+'x</div>';
 h+='<div style="display:flex;justify-content:space-between;align-items:flex-start"><span style="font-size:18px">'+S.avatars[i]+'</span><span style="font-size:22px;font-weight:900;color:'+pc(i)+';letter-spacing:-1px">'+S.scores[i]+'</span></div>';
 h+='<div style="font-size:9px;font-weight:700;color:'+pc(i)+';margin-top:5px;letter-spacing:.5px">'+S.names[i]+'</div>';
 h+='<div style="height:3px;background:rgba(255,255,255,.04);border-radius:2px;margin-top:5px;overflow:hidden"><div style="height:100%;width:'+(m>0?S.scores[i]/m*100:0)+'%;background:linear-gradient(90deg,'+pc(i)+','+plc(i)+');border-radius:2px"></div></div></div>';}
