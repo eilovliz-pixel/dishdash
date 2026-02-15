@@ -7,7 +7,7 @@ import gc
 import os
 
 # === OTA UPDATE ===
-OTA_VERSION = "4.5.2"
+OTA_VERSION = "4.5.3"
 
 # === PINS ===
 FRONT_BTN = machine.Pin(2, machine.Pin.IN, machine.Pin.PULL_UP)
@@ -150,6 +150,7 @@ def scroll_tick():
 fp_uart = machine.UART(2, baudrate=57600, rx=32, tx=33)
 
 def fp_send(data):
+    wdt_feed()
     pkt = bytearray([0xEF,0x01,0xFF,0xFF,0xFF,0xFF,0x01])
     ln = len(data) + 2
     pkt.append(ln >> 8)
@@ -291,6 +292,7 @@ def play_tone(freq, dur_ms, duty=50):
 
 def _play(notes):
     """Play note sequence: [(freq, duration_ms), ...]"""
+    wdt_feed()
     d = [40, 80, 130, 200, 300][max(0, min(4, state["sound"]["volume"] - 1))]
     AMP.value(1)
     time.sleep_ms(80)
@@ -662,7 +664,7 @@ def save_network():
         json.dump(network_config, f)
 
 def factory_reset():
-    for fn in ["state.json", "state.tmp", "wifi.json", "network.json"]:
+    for fn in ["state.json", "state.tmp", "wifi.json", "network.json", "boots.txt"]:
         try:
             os.remove(fn)
             print("Removed: " + fn)
@@ -1108,6 +1110,8 @@ def handle_api(method, path, body):
         wlan = network.WLAN(network.STA_IF)
         s["wifi_connected"] = wlan.isconnected() if not ap_mode else False
         s["wifi_failures"] = wifi_failures
+        s["boot_count"] = boot_count
+        s["uptime"] = time.ticks_diff(time.ticks_ms(), boot_time) // 1000
         return json.dumps(s)
 
     if path == "/api/ip":
@@ -1293,6 +1297,7 @@ def handle_api(method, path, body):
         return '{"ok":true}'
 
     if method == "POST" and path == "/api/ota/chunk":
+        wdt_feed()
         gc.collect()
         data = json.loads(body)
         fn = data["filename"]
@@ -1305,6 +1310,7 @@ def handle_api(method, path, body):
         return '{"ok":true}'
 
     if method == "POST" and path == "/api/ota/finish":
+        wdt_feed()
         gc.collect()
         data = json.loads(body)
         fn = data["filename"]
@@ -1456,6 +1462,20 @@ def start_server():
 print()
 print("  DISH DASH v" + OTA_VERSION)
 print()
+
+# Boot counter
+boot_count = 0
+try:
+    with open("boots.txt", "r") as f:
+        boot_count = int(f.read().strip())
+except:
+    pass
+boot_count += 1
+with open("boots.txt", "w") as f:
+    f.write(str(boot_count))
+boot_time = time.ticks_ms()
+print("  Boot #" + str(boot_count))
+
 load_state()
 load_network()
 
