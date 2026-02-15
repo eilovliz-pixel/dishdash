@@ -7,7 +7,7 @@ import gc
 import os
 
 # === OTA UPDATE ===
-OTA_VERSION = "4.5.1"
+OTA_VERSION = "4.5.2"
 
 # === PINS ===
 FRONT_BTN = machine.Pin(2, machine.Pin.IN, machine.Pin.PULL_UP)
@@ -68,9 +68,16 @@ def text_to_cols(text):
         cols.append(0)
     return cols
 
+_frame_buf = bytearray(LED_NUM * 2)
+wdt = None
+
+def wdt_feed():
+    if wdt:
+        wdt.feed()
+
 def led_display_frame(cols, offset):
     for row in range(8):
-        d = bytearray(LED_NUM * 2)
+        d = _frame_buf
         for m in range(LED_NUM):
             byte = 0
             for bit in range(8):
@@ -120,6 +127,7 @@ def scroll_static(text):
     led_display_frame(buf, 0)
 
 def scroll_tick():
+    wdt_feed()
     if scroll["done"] or scroll["static"] or scroll["cols"] is None:
         return
     now = time.ticks_ms()
@@ -1338,7 +1346,11 @@ def start_server():
     motion_last_global = time.ticks_ms()
     show_current_state()
 
+    gc_counter = 0
+    global wdt
+    wdt = machine.WDT(timeout=30000)  # 30s watchdog - auto-reboot on hang
     while True:
+        wdt.feed()
         # === Network ===
         if ap_mode:
             check_dns(current_ip)
@@ -1354,6 +1366,12 @@ def start_server():
         action = check_buttons()
         if action:
             handle_button(action)
+
+        # === Memory ===
+        gc_counter += 1
+        if gc_counter >= 100:
+            gc.collect()
+            gc_counter = 0
 
         # === HTTP ===
         try:
@@ -1425,6 +1443,7 @@ def start_server():
                 cl.send("HTTP/1.1 404\r\n\r\n")
 
             cl.close()
+            gc.collect()
         except Exception as e:
             if str(e):
                 print("E:", e)
