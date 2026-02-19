@@ -76,14 +76,17 @@ for(i=0;i<n;i++){t+=S.scores[i];if(S.scores[i]>m)m=S.scores[i];}
 h+='<div class="C" style="padding:11px 13px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center"><span class="do" style="color:'+(S.running?'var(--r)':c)+'"></span><div><div style="font-size:8px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase">Status</div><div style="font-size:13px;font-weight:700;color:'+(S.running?'var(--r)':c)+'">'+(S.running?"Einräumen!":"Wer ist dran?")+'</div></div></div><div style="display:flex;align-items:center;gap:8px">';
 if(!S.wifi_connected)h+='<div style="padding:2px 6px;background:rgba(255,77,106,.1);border:1px solid rgba(255,77,106,.2);border-radius:6px;font-size:9px;font-weight:700;color:var(--r)">📡 OFFLINE</div>';
 h+='<div style="padding:4px 10px;background:rgba(255,183,64,.07);border:1px solid rgba(255,183,64,.1);border-radius:14px;font-size:13px;font-weight:800;color:var(--d)">🪙 '+t+'</div></div></div>';
+// Game countdown or ended banner
+if(S.game&&S.game.ended){h+='<div class="C" style="padding:12px;text-align:center;border:1px solid rgba(255,183,64,.2)"><div style="font-size:16px;font-weight:900;color:var(--d)">🏆 Spiel beendet!</div><div style="font-size:9px;color:var(--t2);margin-top:3px">Punkte bleiben erhalten. Neues Spiel über Config → Spiel</div></div>';}
+else if(S.game&&S.game.endDate){var _ed=new Date(S.game.endDate+"T23:59:59"),_now=new Date(),_df=Math.ceil((_ed-_now)/86400000);if(_df>0&&_df<=14)h+='<div style="text-align:center;padding:4px;font-size:9px;color:var(--t3)">⏱️ Noch '+_df+(_df===1?' Tag':' Tage')+'</div>';else if(_df<=0)h+='<div style="text-align:center;padding:4px;font-size:9px;color:var(--r)">🏁 Letzter Tag!</div>';}
 h+='<div class="C" style="padding:22px 14px;text-align:center">';
 if(S.running){
 h+='<div style="font-size:8px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:6px">Spülmaschine</div><div style="font-size:24px;font-weight:900;color:var(--r);margin-bottom:5px;letter-spacing:-1px">'+S.texts.dirty+'</div><div style="font-size:10px;color:var(--t2);margin-bottom:18px">Geschirr muss eingeräumt werden!</div><button class="bt Bg" style="padding:13px 26px;font-size:14px;border-radius:11px" onclick="doS()">✅ Fertig eingeräumt</button>';
 }else{
 h+='<div style="font-size:8px;font-weight:700;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:6px">Jetzt dran</div><div style="font-size:38px;margin-bottom:6px">'+S.avatars[S.turn]+'</div><div style="font-size:22px;font-weight:900;color:'+c+';letter-spacing:-1px;margin-bottom:2px">'+S.names[S.turn]+'</div><div style="font-size:10px;color:var(--t2);margin-bottom:16px">Finger auf Sensor oder manuell punkten</div>';
 h+='<div style="display:flex;align-items:center;gap:7px;justify-content:center;flex-wrap:wrap"><button class="bt Bd" style="padding:13px 24px;font-size:14px;border-radius:11px" onclick="doP('+S.turn+')">🪙 +1 Punkt</button><button class="bt Bm" onclick="doK()">⏭ Skip</button></div>';
-h+='<div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.04)"><div style="font-size:8px;color:var(--t3);letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;font-weight:600">Jemand anderes?</div><div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap">';
-for(i=0;i<n;i++){if(i!==S.turn)h+='<div onclick="doP('+i+')" style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 11px;background:var(--g);border:1px solid var(--gb);border-radius:9px;cursor:pointer;min-width:58px"><span style="font-size:18px">'+S.avatars[i]+'</span><b style="font-size:8px;font-weight:700;color:'+pc(i)+'">'+S.names[i]+'</b></div>';}
+h+='<div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.04)"><div style="font-size:8px;color:var(--t3);letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;font-weight:600">Einspringen'+((S.game&&S.game.jumpInScore>1)?' <span style="color:var(--n)">+'+S.game.jumpInScore+'</span>':'')+' </div><div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap;position:relative">';
+for(i=0;i<n;i++){if(i!==S.turn){var _vci=S.game&&S.game.vacation&&S.game.vacation[i];h+='<div onclick="doP('+i+')" style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 11px;background:var(--g);border:1px solid var(--gb);border-radius:9px;cursor:pointer;min-width:58px'+(_vci?';opacity:.4':'')+'">'+(  _vci?'<span style="font-size:8px;position:absolute;margin-top:-3px">🏖️</span>':'')+'<span style="font-size:18px">'+S.avatars[i]+'</span><b style="font-size:8px;font-weight:700;color:'+pc(i)+'">'+S.names[i]+'</b></div>';}}
 h+='</div></div>';}
 h+='</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">';
 for(i=0;i<n;i++){
@@ -91,7 +94,7 @@ var a=S.turn===i&&!S.running,sk=S.streaks&&S.streaks[i]>=2;
 h+='<div class="C" style="border-radius:10px;padding:11px;position:relative;cursor:pointer'+(a?';border:1.5px solid '+pc(i)+';box-shadow:0 0 12px '+pc(i)+'25':'')+'" onclick="'+(!S.running?'doP('+i+')':'')+'">';
 if(sk)h+='<div style="position:absolute;top:7px;right:7px;font-size:8px;font-weight:800;padding:2px 5px;border-radius:7px;background:rgba(255,77,106,.12);color:var(--r)">🔥'+S.streaks[i]+'x</div>';
 h+='<div style="display:flex;justify-content:space-between;align-items:flex-start"><span style="font-size:18px">'+S.avatars[i]+'</span><span style="font-size:22px;font-weight:900;color:'+pc(i)+';letter-spacing:-1px">'+S.scores[i]+'</span></div>';
-h+='<div style="font-size:9px;font-weight:700;color:'+pc(i)+';margin-top:5px;letter-spacing:.5px">'+S.names[i]+(S.fp&&!S.fp[i]?' <span style="opacity:.5" title="Kein Fingerabdruck">👆❌</span>':'')+'</div>';
+h+='<div style="font-size:9px;font-weight:700;color:'+pc(i)+';margin-top:5px;letter-spacing:.5px">'+S.names[i]+(S.fp&&!S.fp[i]?' <span style="opacity:.5" title="Kein Fingerabdruck">👆❌</span>':'')+(S.game&&S.game.vacation&&S.game.vacation[i]?' <span title="Im Urlaub">🏖️</span>':'')+'</div>';
 h+='<div style="height:3px;background:rgba(255,255,255,.04);border-radius:2px;margin-top:5px;overflow:hidden"><div style="height:100%;width:'+(m>0?S.scores[i]/m*100:0)+'%;background:linear-gradient(90deg,'+pc(i)+','+plc(i)+');border-radius:2px"></div></div></div>';}
 h+='</div>';e.innerHTML=h;
 }
@@ -119,11 +122,43 @@ e.innerHTML=h;
 }
 
 function rC(){
-ed=false;apI=-1;var ts=[["players","👤 Spieler"],["rewards","🎁 Belohnung"],["finger","👆 Finger"],["texts","💬 Texte"],["display","📺 Display"],["sound","🔊 Sound"],["network","🌐 Netzwerk"],["update","🔄 Update"],["system","🔧 System"]],h='<div class="tb">',i;
+ed=false;apI=-1;var ts=[["game","🎮 Spiel"],["players","👤 Spieler"],["rewards","🎁 Belohnung"],["finger","👆 Finger"],["texts","💬 Texte"],["display","📺 Display"],["sound","🔊 Sound"],["network","🌐 Netzwerk"],["update","🔄 Update"],["system","🔧 System"]],h='<div class="tb">',i;
 for(i=0;i<ts.length;i++)h+='<span class="ta'+(CF===ts[i][0]?' on':'')+'" onclick="CF=\''+ts[i][0]+'\';rC()">'+ts[i][1]+'</span>';
 h+='</div><div id="cc"></div>';document.getElementById("Vc").innerHTML=h;
-var fn={players:cP,rewards:cRe,finger:cF,texts:cT,display:cD,sound:cSo,network:cN,update:cU,system:cS};fn[CF](document.getElementById("cc"));
+var fn={game:cG,players:cP,rewards:cRe,finger:cF,texts:cT,display:cD,sound:cSo,network:cN,update:cU,system:cS};fn[CF](document.getElementById("cc"));
 }
+
+function cG(e){
+var g=S.game||{},n=NN(),vac=g.vacation||[];
+var h='<div class="C"><div class="ct"><span>Spiel-Einstellungen</span></div><div class="cb">';
+// Einspringen Punkte
+h+='<div style="margin-bottom:14px"><div style="font-size:9px;color:var(--t2);margin-bottom:4px;font-weight:700">PUNKTE FÜRS EINSPRINGEN</div>';
+h+='<div style="display:flex;align-items:center;gap:8px"><input type="number" id="gJIS" class="in" style="width:60px;padding:6px;font-size:13px;text-align:center" value="'+(g.jumpInScore||1)+'" min="1" max="10">';
+h+='<span style="font-size:9px;color:var(--t3)">Punkte wenn ein anderer Spieler einspringt</span></div></div>';
+// Urlaubsmodus
+h+='<div style="margin-bottom:14px"><div style="font-size:9px;color:var(--t2);margin-bottom:4px;font-weight:700">URLAUBSMODUS</div>';
+for(var i=0;i<n;i++){var iv=i<vac.length&&vac[i];h+='<div class="cr" style="padding:4px 0"><span style="font-size:14px">'+S.avatars[i]+'</span><span style="font-size:11px;font-weight:700;color:'+pc(i)+';flex:1">'+S.names[i]+'</span><span class="sw'+(iv?' on':'')+'" onclick="tgVac('+i+')"></span>'+(iv?'<span style="font-size:8px;color:var(--d);margin-left:4px">🏖️</span>':'')+'</div>';}
+h+='<div style="font-size:8px;color:var(--t3);margin-top:4px">Spieler im Urlaub werden übersprungen. Springt ein Urlaubsspieler ein, endet der Urlaub automatisch.</div></div>';
+// Enddatum
+h+='<div style="margin-bottom:14px"><div style="font-size:9px;color:var(--t2);margin-bottom:4px;font-weight:700">SPIEL ENDDATUM</div>';
+h+='<div style="display:flex;align-items:center;gap:6px"><input type="date" id="gED" class="in" style="padding:6px;font-size:12px" value="'+(g.endDate||"")+'">';
+if(g.endDate)h+='<button class="bt bx Br" onclick="document.getElementById(\'gED\').value=\'\';sGE()" title="Enddatum löschen">✗</button>';
+h+='</div>';
+// Verbleibende Tage
+if(g.endDate){var ed=new Date(g.endDate+"T23:59:59"),now=new Date(),diff=Math.ceil((ed-now)/86400000);
+if(diff>0)h+='<div style="margin-top:6px;padding:8px;background:rgba(13,221,102,.06);border:1px solid rgba(13,221,102,.15);border-radius:8px;font-size:10px;color:var(--n)">⏱️ Noch <b>'+diff+'</b> '+(diff===1?'Tag':'Tage')+' bis zum Spielende'+(diff<=7?' — <b>Countdown läuft auf dem Display!</b>':'')+'</div>';
+else if(diff<=0)h+='<div style="margin-top:6px;padding:8px;background:rgba(220,38,38,.06);border:1px solid rgba(220,38,38,.15);border-radius:8px;font-size:10px;color:#f66">🏁 Spiel beendet!</div>';}
+h+='</div>';
+// Game ended
+if(g.ended)h+='<div style="margin-bottom:14px;padding:10px;background:rgba(255,183,64,.06);border:1px solid rgba(255,183,64,.15);border-radius:8px;text-align:center"><div style="font-size:11px;font-weight:800;color:var(--d);margin-bottom:6px">🏆 Spiel beendet!</div><button class="bt bs Bg" onclick="api(\'game/restart\',\'POST\').then(function(){ld();setTimeout(rC,500)})">🔄 Neues Spiel starten</button></div>';
+h+='</div><div class="ch">💡 Side-Button 2x drücken = Verbleibende Tage auf LED anzeigen</div></div></div>';
+e.innerHTML=h;
+// Save handlers
+document.getElementById("gJIS").onchange=function(){api("game","PUT",{jumpInScore:parseInt(this.value)||1}).then(function(){T("Einspringen-Punkte gespeichert!");ld()});};
+document.getElementById("gED").onchange=function(){sGE();};
+}
+function tgVac(i){var g=S.game||{};var v=g.vacation||[];v[i]=!v[i];g.vacation=v;S.game=g;api("game","PUT",{vacation:v}).then(function(){T(S.names[i]+(v[i]?" im Urlaub 🏖️":" wieder aktiv ✅"));ld();setTimeout(rC,500)});}
+function sGE(){var v=document.getElementById("gED").value;api("game","PUT",{endDate:v}).then(function(){T(v?"Enddatum gesetzt: "+v:"Enddatum gelöscht");ld();setTimeout(rC,500)});}
 
 function cP(e){
 var n=NN(),h='<div class="C"><div class="ct"><span>Spieler ('+n+')</span><div id="pB"><button class="bt bs Bb" onclick="eN()">✏️</button></div></div><div class="cb"><div id="pL">';
@@ -319,7 +354,7 @@ function dlBackup(){api("state").then(function(d){if(!d)return T("Fehler","er");
 function doRestore(inp){var f=inp.files[0];if(!f)return;if(!confirm("Backup wiederherstellen?\nAktuelle Spielstände werden überschrieben!"))return void(inp.value="");var r=new FileReader();r.onload=function(){try{var d=JSON.parse(r.result);api("restore","POST",d).then(function(res){if(res&&res.ok){T("Backup wiederhergestellt!","ok");setTimeout(ld,500);}else T("Fehler: "+(res&&res.error||"unbekannt"),"er");});}catch(e){T("Ungültige Datei","er");}inp.value="";};r.readAsText(f);}
 
 function doS(){S.running=false;api("start","POST");R();}
-function doP(i){api("score","POST",{player:i}).then(function(d){if(d){S.scores[i]++;S.turn=(S.turn+1)%NN();S.running=true;R();checkReward(d);}});}
+function doP(i){api("score","POST",{player:i}).then(function(d){if(d){var pts=(i===S.turn)?1:(S.game&&S.game.jumpInScore||1);S.scores[i]+=pts;if(i===S.turn)S.turn=(S.turn+1)%NN();S.running=true;R();checkReward(d);}});}
 function doK(){var o=S.turn;S.turn=(S.turn+1)%NN();api("skip","POST");T(S.names[o]+" übersprungen","in");R();}
 setInterval(ld,15e3);ld();
 </script></body></html>
