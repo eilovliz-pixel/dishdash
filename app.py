@@ -7,7 +7,7 @@ import gc
 import os
 
 # === OTA UPDATE ===
-OTA_VERSION = "4.8.1"
+OTA_VERSION = "4.8.2"
 
 # === PINS ===
 FRONT_BTN = machine.Pin(2, machine.Pin.IN, machine.Pin.PULL_UP)
@@ -1252,13 +1252,14 @@ def send_file(cl, fn, ct="text/html", cache=0, gz=False):
             hdr += "Cache-Control: public,max-age=" + str(cache) + "\r\n"
         hdr += "\r\n"
         cl.send(hdr)
+        buf = bytearray(4096)
         with open(fn, "rb") as f:
             while True:
-                chunk = f.read(2048)
-                if not chunk:
+                n = f.readinto(buf)
+                if not n:
                     break
-                cl.send(chunk)
-                scroll_tick()
+                cl.send(memoryview(buf)[:n])
+                wdt_feed()
     except:
         pass
 
@@ -1706,9 +1707,9 @@ def start_server():
             elif path in ["/", "/index.html"]:
                 try:
                     os.stat("dashboard.gz")
-                    send_file(cl, "dashboard.gz", cache=300, gz=True)
+                    send_file(cl, "dashboard.gz", cache=604800, gz=True)
                 except:
-                    send_file(cl, "dashboard.html", cache=300)
+                    send_file(cl, "dashboard.html", cache=604800)
             elif path == "/mem":
                 send_resp(cl, '<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Memory</title><style>body{background:#111;color:#fff;font-family:monospace;padding:12px}pre{font-size:11px}canvas{width:100%;height:200px;background:#1a1a1a;border-radius:8px}.r{color:#f66}.g{color:#0d6}</style></head><body><h3>Memory Monitor</h3><pre id=d>Loading...</pre><canvas id=c></canvas><script>async function u(){let r=await fetch("/api/mem");let d=await r.json();let h="Free: <span class=g>"+d.free+"</span> | Min: <span class=r>"+d.min+"</span> | Uptime: "+Math.floor(d.uptime/60)+"min\\n\\n";h+="=== Log (5min intervals) ===\\n";d.log.forEach(function(e){h+=e[0]+"min: "+e[1]+"\\n"});document.getElementById("d").innerHTML=h;if(d.log.length>1){let c=document.getElementById("c");let ctx=c.getContext("2d");c.width=c.offsetWidth;c.height=200;let vals=d.log.map(function(e){return e[1]});let mn=Math.min.apply(null,vals);let mx=Math.max.apply(null,vals);let rng=mx-mn||1;ctx.clearRect(0,0,c.width,c.height);ctx.strokeStyle="#0d6";ctx.lineWidth=2;ctx.beginPath();for(let i=0;i<vals.length;i++){let x=i/(vals.length-1)*c.width;let y=c.height-((vals[i]-mn)/rng)*c.height*0.8-20;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();ctx.fillStyle="#666";ctx.font="10px monospace";ctx.fillText(mx+"",4,14);ctx.fillText(mn+"",4,c.height-4);}}u();setInterval(u,10000);</script></body></html>')
             elif path == "/manifest.json":
