@@ -7,7 +7,7 @@ import gc
 import os
 
 # === OTA UPDATE ===
-OTA_VERSION = "4.8.2"
+OTA_VERSION = "4.8.3"
 
 # === PINS ===
 FRONT_BTN = machine.Pin(2, machine.Pin.IN, machine.Pin.PULL_UP)
@@ -1242,6 +1242,8 @@ def send_resp(cl, body, ct="text/html"):
 def send_redirect(cl, url):
     cl.send("HTTP/1.1 302 Found\r\nLocation: " + url + "\r\nConnection: close\r\n\r\n")
 
+_send_buf = bytearray(2048)
+
 def send_file(cl, fn, ct="text/html", cache=0, gz=False):
     try:
         sz = os.stat(fn)[6]
@@ -1252,13 +1254,12 @@ def send_file(cl, fn, ct="text/html", cache=0, gz=False):
             hdr += "Cache-Control: public,max-age=" + str(cache) + "\r\n"
         hdr += "\r\n"
         cl.send(hdr)
-        buf = bytearray(4096)
         with open(fn, "rb") as f:
             while True:
-                n = f.readinto(buf)
+                n = f.readinto(_send_buf)
                 if not n:
                     break
-                cl.send(memoryview(buf)[:n])
+                cl.send(memoryview(_send_buf)[:n])
                 wdt_feed()
     except:
         pass
