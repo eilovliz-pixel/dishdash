@@ -7,7 +7,7 @@ import gc
 import os
 
 # === OTA UPDATE ===
-OTA_VERSION = "4.8.0"
+OTA_VERSION = "4.8.1"
 
 # === PINS ===
 FRONT_BTN = machine.Pin(2, machine.Pin.IN, machine.Pin.PULL_UP)
@@ -751,44 +751,57 @@ def next_active_turn(from_idx):
             return idx
     return (from_idx + 1) % n  # Fallback: all on vacation
 
+_days_cache = -1
+_days_cache_time = 0
+
 def days_remaining():
-    """Returns days until game end, or -1 if no end date"""
+    """Returns days until game end, or -1 if no end date. Cached for 5min."""
+    global _days_cache, _days_cache_time
+    now_ms = time.ticks_ms()
+    if time.ticks_diff(now_ms, _days_cache_time) < 300000:  # 5min cache
+        return _days_cache
     ed = state["game"].get("endDate", "")
     if not ed:
+        _days_cache = -1
+        _days_cache_time = now_ms
         return -1
     try:
-        # Parse "YYYY-MM-DD"
         p = ed.split("-")
-        end_y, end_m, end_d = int(p[0]), int(p[1]), int(p[2])
+        end_ts = time.mktime((int(p[0]), int(p[1]), int(p[2]), 23, 59, 59, 0, 0))
         now = time.localtime()
-        # Simple day diff using mktime
-        end_ts = time.mktime((end_y, end_m, end_d, 23, 59, 59, 0, 0))
         now_ts = time.mktime((now[0], now[1], now[2], 0, 0, 0, 0, 0))
-        diff = (end_ts - now_ts) // 86400
-        return max(0, diff)
+        _days_cache = max(0, (end_ts - now_ts) // 86400)
     except:
-        return -1
+        _days_cache = -1
+    _days_cache_time = now_ms
+    return _days_cache
+
+def invalidate_days_cache():
+    global _days_cache_time
+    _days_cache_time = 0
 
 def check_game_end():
     """Check if game has ended. Returns True if ended."""
+    g = state["game"]
+    if g.get("ended", False):
+        return True
+    if not g.get("endDate", ""):
+        return False
     d = days_remaining()
-    if d == 0 and not state["game"].get("ended", False):
-        state["game"]["ended"] = True
+    if d == 0:
+        g["ended"] = True
         save_state()
-        # Find winner
         scores = state["scores"]
         max_s = max(scores)
         winners = [i for i in range(len(scores)) if scores[i] == max_s]
         if len(winners) == 1:
-            name = state["names"][winners[0]]
-            txt = name + " GEWINNT MIT " + str(max_s) + " PUNKTEN!"
+            txt = state["names"][winners[0]] + " GEWINNT MIT " + str(max_s) + " PUNKTEN!"
         else:
-            names = " & ".join([state["names"][w] for w in winners])
-            txt = "GLEICHSTAND! " + names + " MIT " + str(max_s) + " PUNKTEN!"
+            txt = "GLEICHSTAND! " + " & ".join([state["names"][w] for w in winners]) + " MIT " + str(max_s) + " PUNKTEN!"
         sound_milestone()
         scroll_start(txt, count=5, speed=25)
         return True
-    return state["game"].get("ended", False)
+    return False
 
 def show_remaining():
     """Show remaining days on LED"""
@@ -1034,6 +1047,7 @@ def connect_wifi():
             break
         for _ in range(20):
             scroll_tick()
+            wdt_feed()
             time.sleep_ms(50)
         print(".", end="")
     print()
@@ -1397,7 +1411,8 @@ def handle_api(method, path, body):
             g["jumpInScore"] = max(1, min(10, int(data["jumpInScore"])))
         if "endDate" in data:
             g["endDate"] = data["endDate"]
-            g["ended"] = False  # Reset ended flag when date changes
+            g["ended"] = False
+            invalidate_days_cache()
         if "vacation" in data:
             vac = data["vacation"]
             n = len(state["names"])
